@@ -119,16 +119,6 @@
       max-width: 600px;
     }
     .actions { display: flex; flex-wrap: wrap; gap: 14px; }
-    .chips { display: grid; gap: 8px; grid-template-columns: repeat(3, 1fr); margin-top: 26px; }
-    .chips span {
-      background: rgba(255, 255, 255, 0.78);
-      border: 1px solid var(--line);
-      color: #24415f;
-      font-size: 14px;
-      font-weight: 850;
-      padding: 7px 10px;
-      text-align: center;
-    }
     .visual {
       background: rgba(255, 255, 255, 0.54);
       border: 1px solid var(--line);
@@ -137,7 +127,7 @@
       position: relative;
       z-index: 1;
     }
-    .section { padding: 92px 0; }
+    .section { padding: 92px 0; scroll-margin-top: 68px; }
     .section.dark { background: var(--nav); color: #fff; }
     .head { margin-bottom: 38px; max-width: 760px; }
     .head.center { margin-left: auto; margin-right: auto; text-align: center; }
@@ -145,20 +135,9 @@
     .head p { color: var(--muted); font-size: 18px; margin: 0; }
     .dark .head p { color: #b9cde2; }
     .grid { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); }
-    .card { background: #fff; border: 1px solid var(--line); min-height: 190px; padding: 22px; }
-    .card b { display: block; font-size: 19px; margin: 14px 0 8px; }
+    .card { background: #fff; border: 1px solid var(--line); min-height: 160px; padding: 26px; }
+    .card b { display: block; font-size: 19px; margin: 0 0 8px; }
     .card p { color: var(--muted); font-size: 15px; margin: 0; }
-    .icon {
-      align-items: center;
-      background: #e7f1ff;
-      color: var(--blue);
-      display: flex;
-      font-size: 12px;
-      font-weight: 950;
-      height: 42px;
-      justify-content: center;
-      width: 42px;
-    }
     .split { align-items: center; display: grid; gap: 44px; grid-template-columns: 0.9fr 1.1fr; }
     .panel { background: #fff; border: 1px solid var(--line); box-shadow: 0 24px 70px rgba(43, 89, 135, 0.12); padding: 18px; }
     .mail-showcase { background: #eaf4ff; overflow: hidden; }
@@ -232,6 +211,7 @@
     .footer a { color: #dbe7f3; }
     @media (max-width: 980px) {
       .hero .wrap, .split, .mail-layout, .story-grid, .deployment-grid, .cta-box { grid-template-columns: 1fr; }
+      .hero .wrap { min-height: 0; }
       .visual { order: -1; }
       h1 { font-size: 44px; }
       .hero-bg { left: 15%; width: 760px; }
@@ -277,9 +257,6 @@
           <a class="btn primary" href="https://bridge.demo.opensuite.online/">Open live demo</a>
           <a class="btn" href="https://github.com/open-suite/open-suite">View source on GitHub</a>
         </div>
-        <div class="chips">
-          <span>Mail</span><span>Files</span><span>Docs</span><span>Calendar</span><span>Meet</span><span>Chat</span><span>Projects</span><span>Tables</span><span>SSO</span>
-        </div>
       </div>
       <div class="visual"><img src="/opensuite-apps.png" alt="Open Suite workspace interface"></div>
     </div>
@@ -293,15 +270,15 @@
           <p>Excellent open-source products, integrated deeply enough that people experience a workplace — not a bag of applications.</p>
         </div>
         <div class="grid">
-          <div class="card"><div class="icon">Mail</div><b>Mail</b><p>Read, write, organize, and search email without leaving the shared workplace.</p></div>
-          <div class="card"><div class="icon">Files</div><b>Files</b><p>Store, share, favorite, search, and recover work through Nextcloud.</p></div>
-          <div class="card"><div class="icon">Docs</div><b>Documents</b><p>Create browser-based Word documents with automatic saving and sharing.</p></div>
-          <div class="card"><div class="icon">Cal</div><b>Calendar</b><p>Schedule events with Meet links, guests, reminders, and portal join buttons.</p></div>
-          <div class="card"><div class="icon">Meet</div><b>Meet</b><p>Start secure video rooms or join from calendar events and shared links.</p></div>
-          <div class="card"><div class="icon">Chat</div><b>Chat</b><p>Coordinate teams without forcing every discussion into meetings.</p></div>
-          <div class="card"><div class="icon">Plan</div><b>Projects</b><p>Track tasks, owners, status, and due dates on shared boards.</p></div>
-          <div class="card"><div class="icon">Data</div><b>Tables</b><p>Manage structured records, lightweight databases, trackers, and registers.</p></div>
-          <div class="card"><div class="icon">SSO</div><b>Single sign-on</b><p>Use Keycloak to keep access centralized behind one organization login.</p></div>
+          <div class="card"><b>Mail</b><p>Read, write, organize, and search email without leaving the shared workplace.</p></div>
+          <div class="card"><b>Files</b><p>Store, share, favorite, search, and recover work through Nextcloud.</p></div>
+          <div class="card"><b>Documents</b><p>Create browser-based Word documents with automatic saving and sharing.</p></div>
+          <div class="card"><b>Calendar</b><p>Schedule events with Meet links, guests, reminders, and portal join buttons.</p></div>
+          <div class="card"><b>Meet</b><p>Start secure video rooms or join from calendar events and shared links.</p></div>
+          <div class="card"><b>Chat</b><p>Coordinate teams without forcing every discussion into meetings.</p></div>
+          <div class="card"><b>Projects</b><p>Track tasks, owners, status, and due dates on shared boards.</p></div>
+          <div class="card"><b>Tables</b><p>Manage structured records, lightweight databases, trackers, and registers.</p></div>
+          <div class="card"><b>Single sign-on</b><p>Use Keycloak to keep access centralized behind one organization login.</p></div>
         </div>
       </div>
     </section>

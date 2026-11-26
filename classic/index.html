@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Open Suite Classic — the k3s distribution</title>
+  <meta name="description" content="Open Suite is a cohesive, self-hosted workplace with mail, files, documents, calendar, meetings, chat, projects, and one login — running on infrastructure you control.">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <style>
+    :root {
+      --ink: #102033;
+      --muted: #4d6278;
+      --line: #c9def4;
+      --blue: #1269e8;
+      --orange: #ff5a1f;
+      --nav: #071c2f;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      background: #f7fbff;
+      line-height: 1.55;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(7, 28, 47, 0.96);
+      color: #dbe7f3;
+    }
+    .nav .wrap {
+      align-items: center;
+      display: flex;
+      height: 68px;
+      justify-content: space-between;
+    }
+    .brand {
+      align-items: center;
+      color: #fff;
+      display: flex;
+      font-weight: 900;
+      gap: 10px;
+    }
+    .mark {
+      background: #ff5a1f;
+      color: #071c2f;
+      display: grid;
+      font-size: 18px;
+      font-weight: 950;
+      height: 34px;
+      place-items: center;
+      width: 34px;
+    }
+    .links { align-items: center; display: flex; gap: 28px; font-weight: 750; }
+    .links a { color: #dbe7f3; }
+    .links a:hover { color: #fff; }
+    .btn {
+      align-items: center;
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      display: inline-flex;
+      font-weight: 850;
+      justify-content: center;
+      min-height: 48px;
+      padding: 13px 18px;
+    }
+    .btn.primary { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .btn.dark { background: var(--nav); border-color: var(--nav); color: #fff; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:focus-visible, a:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+    .hero {
+      background: linear-gradient(180deg, #eef6ff 0%, #f8fbff 100%);
+      overflow: hidden;
+      position: relative;
+    }
+    .hero .wrap {
+      align-items: center;
+      display: grid;
+      gap: 52px;
+      grid-template-columns: 0.92fr 1.08fr;
+      min-height: calc(100vh - 68px);
+      padding-bottom: 64px;
+      padding-top: 58px;
+    }
+    .hero-bg {
+      height: 430px;
+      left: 48%;
+      object-fit: cover;
+      opacity: 0.55;
+      position: absolute;
+      top: 28px;
+      width: 760px;
+    }
+    .copy { position: relative; z-index: 1; }
+    .eyebrow {
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-size: 66px;
+      letter-spacing: -2px;
+      line-height: 1.02;
+      margin: 18px 0;
+    }
+    .lead {
+      color: var(--muted);
+      font-size: 20px;
+      margin: 0 0 28px;
+      max-width: 600px;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 14px; }
+    .visual {
+      background: rgba(255, 255, 255, 0.54);
+      border: 1px solid var(--line);
+      box-shadow: 0 28px 80px rgba(43, 89, 135, 0.17);
+      padding: 26px;
+      position: relative;
+      z-index: 1;
+    }
+    .section { padding: 92px 0; scroll-margin-top: 68px; }
+    .section.dark { background: var(--nav); color: #fff; }
+    .head { margin-bottom: 38px; max-width: 760px; }
+    .head.center { margin-left: auto; margin-right: auto; text-align: center; }
+    .head h2 { font-size: 42px; letter-spacing: -0.8px; line-height: 1.12; margin: 10px 0; }
+    .head p { color: var(--muted); font-size: 18px; margin: 0; }
+    .dark .head p { color: #b9cde2; }
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); }
+    .card { background: #fff; border: 1px solid var(--line); min-height: 160px; padding: 26px; }
+    .card b { display: block; font-size: 19px; margin: 0 0 8px; }
+    .card p { color: var(--muted); font-size: 15px; margin: 0; }
+    .split { align-items: center; display: grid; gap: 44px; grid-template-columns: 0.9fr 1.1fr; }
+    .panel { background: #fff; border: 1px solid var(--line); box-shadow: 0 24px 70px rgba(43, 89, 135, 0.12); padding: 18px; }
+    .mail-showcase { background: #eaf4ff; overflow: hidden; }
+    .mail-layout { align-items: center; display: grid; gap: 54px; grid-template-columns: 0.72fr 1.28fr; }
+    .mail-shot {
+      background: #fff;
+      border: 1px solid #b9d3ee;
+      box-shadow: 0 30px 80px rgba(18, 55, 91, 0.2);
+      padding: 12px;
+      transform: rotate(0.7deg);
+    }
+    .proofs { display: grid; gap: 12px; margin-top: 28px; }
+    .proof { align-items: flex-start; display: flex; gap: 12px; }
+    .proof::before { color: var(--blue); content: "✓"; font-weight: 950; }
+    .proof b { display: block; }
+    .proof span { color: var(--muted); font-size: 15px; }
+    .story { background: #fff; }
+    .story-grid { display: grid; gap: 26px; grid-template-columns: 0.8fr 1.2fr; }
+    .story-origin {
+      background: #dcecff;
+      border-top: 6px solid var(--blue);
+      height: 100%;
+      padding: 34px;
+    }
+    .story-origin h3 { font-size: 25px; line-height: 1.2; margin: 0 0 18px; }
+    .story-origin p { color: #36536f; margin: 0; }
+    .story-answer { background: var(--nav); color: #fff; padding: 38px; }
+    .story-answer h3 { font-size: 30px; line-height: 1.18; margin: 0 0 22px; }
+    .seams { display: grid; gap: 12px; }
+    .seam { border-top: 1px solid rgba(255, 255, 255, 0.18); padding-top: 12px; }
+    .seam b { color: #fff; display: block; }
+    .seam span { color: #bed1e4; font-size: 15px; }
+    .deployment { background: #071c2f; color: #fff; }
+    .deployment-grid { align-items: stretch; display: grid; gap: 28px; grid-template-columns: 1.15fr 0.85fr; }
+    .deployment .head { margin: 0; }
+    .deployment .head p { color: #bfd0e2; }
+    .ownership { display: grid; gap: 12px; margin-top: 28px; }
+    .ownership div { border-left: 3px solid var(--orange); color: #d8e5f1; padding: 3px 0 3px 16px; }
+    .cost-card {
+      background: var(--orange);
+      color: var(--nav);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 350px;
+      padding: 34px;
+    }
+    .cost-label { font-size: 13px; font-weight: 950; letter-spacing: 0.1em; text-transform: uppercase; }
+    .cost-number { font-size: 76px; font-weight: 950; letter-spacing: -5px; line-height: 0.9; margin: 36px 0 10px; }
+    .cost-number small { font-size: 22px; letter-spacing: 0; }
+    .cost-card p { font-size: 18px; font-weight: 750; margin: 0; }
+    .cost-note { border-top: 1px solid rgba(7, 28, 47, 0.35); font-size: 12px; margin-top: 30px; padding-top: 16px; }
+    .list { display: grid; gap: 14px; }
+    .item { background: rgba(255, 255, 255, 0.08); border-left: 4px solid var(--blue); padding: 18px 20px; }
+    .item b { color: #fff; display: block; margin-bottom: 4px; }
+    .item span { color: #c7d7e8; }
+    .cta { background: #eef6ff; }
+    .cta-box {
+      align-items: center;
+      background: #fff;
+      border: 1px solid var(--line);
+      display: grid;
+      gap: 24px;
+      grid-template-columns: 1fr auto;
+      padding: 44px;
+    }
+    .cta h2 { font-size: 34px; margin: 0 0 8px; }
+    .cta p { color: var(--muted); font-size: 18px; margin: 0; }
+    .footer { background: #061524; color: #9db2c8; padding: 42px 0; }
+    .footer .wrap { display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; }
+    .footer a { color: #dbe7f3; }
+    .classic-note { background: var(--orange); color: var(--nav); font-weight: 750; padding: 10px 0; text-align: center; }
+    .classic-note a { text-decoration: underline; }
+    @media (max-width: 980px) {
+      .hero .wrap, .split, .mail-layout, .story-grid, .deployment-grid, .cta-box { grid-template-columns: 1fr; }
+      .hero .wrap { min-height: 0; }
+      .visual { order: -1; }
+      h1 { font-size: 44px; }
+      .hero-bg { left: 15%; width: 760px; }
+      .grid { grid-template-columns: 1fr 1fr; }
+      .links { display: none; }
+    }
+    @media (max-width: 560px) {
+      .grid { grid-template-columns: 1fr; }
+      .actions .btn { width: 100%; }
+      .section { padding: 60px 0; }
+      .mail-shot { overflow: hidden; transform: none; }
+      .mail-shot img { height: 320px; max-width: none; transform: translateX(-82px); width: auto; }
+      .panel { overflow: hidden; }
+      .panel img { height: 300px; max-width: none; transform: translateX(-45px); width: auto; }
+      .cost-card { min-height: 310px; }
+      .cost-number { font-size: 62px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="classic-note"><div class="wrap">This is Open Suite Classic, the k3s distribution of established open-source apps. <a href="/">See the current Open Suite</a>.</div></div>
+  <nav class="nav">
+    <div class="wrap">
+      <a class="brand" href="/"><span class="mark">O</span>Open Suite</a>
+      <div class="links">
+        <a href="#apps">Apps</a>
+        <a href="#story">Our story</a>
+        <a href="https://docs.opensuite.online/classic/">Docs</a>
+        <a href="https://github.com/open-suite/open-suite">GitHub</a>
+      </div>
+    </div>
+  </nav>
+  <header class="hero">
+    <img class="hero-bg" src="/classic/opensuite-hero.png" alt="">
+    <div class="wrap">
+      <div class="copy">
+        <div class="eyebrow">A European, open-source digital workplace</div>
+        <h1>Your team’s whole office. One product. Your server.</h1>
+        <p class="lead">Mail, files, documents, calendar, meetings, chat, projects, and data — with one identity and one coherent interface, running on infrastructure you control.</p>
+        <div class="actions">
+          <a class="btn primary" href="https://bridge.demo.opensuite.online/">Open live demo</a>
+          <a class="btn" href="https://github.com/open-suite/open-suite">View source on GitHub</a>
+        </div>
+      </div>
+      <div class="visual"><img src="/classic/opensuite-apps.png" alt="Open Suite workspace interface"></div>
+    </div>
+  </header>
+  <main>
+    <section class="section" id="apps">
+      <div class="wrap">
+        <div class="head center">
+          <div class="eyebrow">One workspace</div>
+          <h2>Nine daily tools. One front door.</h2>
+          <p>Excellent open-source products, integrated deeply enough that people experience a workplace — not a bag of applications.</p>
+        </div>
+        <div class="grid">
+          <div class="card"><b>Mail</b><p>Read, write, organize, and search email without leaving the shared workplace.</p></div>
+          <div class="card"><b>Files</b><p>Store, share, favorite, search, and recover work through Nextcloud.</p></div>
+          <div class="card"><b>Documents</b><p>Create browser-based Word documents with automatic saving and sharing.</p></div>
+          <div class="card"><b>Calendar</b><p>Schedule events with Meet links, guests, reminders, and portal join buttons.</p></div>
+          <div class="card"><b>Meet</b><p>Start secure video rooms or join from calendar events and shared links.</p></div>
+          <div class="card"><b>Chat</b><p>Coordinate teams without forcing every discussion into meetings.</p></div>
+          <div class="card"><b>Projects</b><p>Track tasks, owners, status, and due dates on shared boards.</p></div>
+          <div class="card"><b>Tables</b><p>Manage structured records, lightweight databases, trackers, and registers.</p></div>
+          <div class="card"><b>Single sign-on</b><p>Use Keycloak to keep access centralized behind one organization login.</p></div>
+        </div>
+      </div>
+    </section>
+    <section class="section mail-showcase">
+      <div class="wrap mail-layout">
+        <div class="head">
+          <div class="eyebrow">Mail is not an add-on</div>
+          <h2>Your inbox belongs in the same workplace.</h2>
+          <p>Email is where work arrives. Open Suite puts it beside your files, meetings, calendar, and conversations — under the same header, branding, and login.</p>
+          <div class="proofs">
+            <div class="proof"><div><b>A real daily inbox</b><span>Compose, search, label, archive, and manage messages.</span></div></div>
+            <div class="proof"><div><b>No identity hand-off</b><span>Move from Mail to Docs or Meet without feeling sent to another product.</span></div></div>
+            <div class="proof"><div><b>Your domain, your data</b><span>Keep communication inside infrastructure your organization controls.</span></div></div>
+          </div>
+        </div>
+        <div class="mail-shot">
+          <img src="/classic/mail-inbox.png" alt="Open Suite Mail inbox with the shared suite navigation">
+        </div>
+      </div>
+    </section>
+    <section class="section story" id="story">
+      <div class="wrap">
+        <div class="head">
+          <div class="eyebrow">Why we built Open Suite</div>
+          <h2>Mijn Bureau had the right idea. Using it showed us what was missing.</h2>
+          <p>A portal joining strong European open-source tools was a compelling start. But assembling applications is not the same as making a product teams can trust.</p>
+        </div>
+        <div class="story-grid">
+          <div class="story-origin">
+            <h3>The promise was better than the experience.</h3>
+            <p>Our first Mijn Bureau deployment felt fragmented: different brands and navigation, no integrated Mail, confusing dead ends, and setup that still demanded an integration project. Users saw the seams. Operators had to understand all of them.</p>
+          </div>
+          <div class="story-answer">
+            <h3>So we turned the reference stack into a distribution that behaves like one product.</h3>
+            <div class="seams">
+              <div class="seam"><b>One identity and one visual language</b><span>A shared header, consistent Open Suite branding, and SSO across the workplace.</span></div>
+              <div class="seam"><b>Journeys that finish properly</b><span>Durable links, useful close and back behavior, connected calendar-to-meeting flows, and no disposable error-screen dead ends.</span></div>
+              <div class="seam"><b>Integration work shipped, not documented as homework</b><span>Images, patches, configuration, networking, certificates, and app wiring arrive as one reproducible deployment.</span></div>
+              <div class="seam"><b>The stack disappears</b><span>People use Mail, Files, Docs, and Meet. They do not need to know which upstream project owns each screen.</span></div>
+            </div>
+            <p style="color:#fff;font-size:18px;font-weight:800;margin:26px 0 0">The promise is deliberately boring: sign in and get to work. It just works.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section deployment">
+      <div class="wrap deployment-grid">
+        <div class="head">
+          <div class="eyebrow">Sovereignty without a datacenter</div>
+          <h2>Run the whole workplace on one ordinary server.</h2>
+          <p>Open Suite packages the office as a single-VPS k3s distribution. Bring a domain, a Linux machine, and your preferred European host — the deployment assembles the rest.</p>
+          <div class="ownership">
+            <div>Your server, database, object storage, encryption keys, and backups.</div>
+            <div>No per-seat platform rent and no proprietary control plane.</div>
+            <div>Every distribution patch is public, inspectable, and forkable on GitHub.</div>
+          </div>
+          <div class="actions" style="margin-top:30px">
+            <a class="btn primary" href="https://github.com/open-suite/open-suite">Explore the GitHub repository</a>
+            <a class="btn" href="https://docs.opensuite.online/classic/it/install/">Read the install guide</a>
+          </div>
+        </div>
+        <div class="cost-card">
+          <div>
+            <div class="cost-label">A complete sovereign office</div>
+            <div class="cost-number">≈ $50<small>/month</small></div>
+            <p>One VPS. One login. Nine integrated tools. Full administrative control.</p>
+          </div>
+          <div class="cost-note">Indicative infrastructure cost for a practical single-server deployment; exact pricing and capacity depend on provider and workload.</div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap split">
+        <div class="panel"><img src="/classic/portal-dashboard.png" alt="Open Suite portal dashboard"></div>
+        <div class="head">
+          <div class="eyebrow">Made to be understood</div>
+          <h2>People should not need a map of the machinery.</h2>
+          <p>The portal gives every day a clear starting point. The documentation follows the same principle: plain-language guides for users, practical controls for administrators, and a complete path from a blank server to a working workplace.</p>
+          <div class="actions" style="margin-top:24px">
+            <a class="btn primary" href="https://docs.opensuite.online/classic/">Open docs</a>
+            <a class="btn" href="https://docs.opensuite.online/classic/users/use-mail/">See the Mail guide</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section cta">
+      <div class="wrap">
+        <div class="cta-box">
+          <div><h2>Don’t take the architecture diagram’s word for it.</h2><p>Open the public demo and use the workplace: read Mail, create a document, schedule a meeting, and move between them with one identity.</p></div>
+          <div class="actions"><a class="btn dark" href="https://bridge.demo.opensuite.online/">Launch demo</a><a class="btn" href="https://github.com/open-suite/open-suite">Read the source</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="wrap">
+      <div>Open Suite. The sovereign workplace distribution.</div>
+      <div><a href="https://bridge.demo.opensuite.online/">Demo</a> · <a href="https://docs.opensuite.online/classic/">Docs</a> · <a href="https://github.com/open-suite/open-suite">GitHub</a></div>
+    </div>
+  </footer>
+</body>
+</html>
